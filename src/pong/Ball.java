@@ -6,7 +6,7 @@ package pong;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Ball extends Block {
+public class Ball extends Block implements Collidable{
 
     private int XSpeed;
     private int YSpeed;
@@ -42,11 +42,15 @@ public class Ball extends Block {
     }
 
     public void moveAndDraw(Graphics window) {
-        window.setColor(Color.WHITE);
-        window.fillOval(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+        remBall(window);
         setX(getX() + getXSpeed());
         setY(getY() + getYSpeed());
         window.setColor(super.getColor());
+        window.fillOval(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+    }
+    
+    public void remBall(Graphics window) {
+        window.setColor(Color.WHITE);
         window.fillOval(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
 
@@ -81,6 +85,30 @@ public class Ball extends Block {
     @Override
     public String toString() {
         return getX() + " " + getY() + " " + getWidth() + " " + getHeight() + " " + getColor() + " " + getXSpeed() + " " + getYSpeed();
+    }
+    
+    public boolean didCollideLeft(Object obj){
+        Paddle paddle = (Paddle) obj;
+        if((super.getX() <= paddle.getX() + paddle.getWidth() + Math.abs(getXSpeed())) &&
+                (super.getY() >= paddle.getY() && 
+                super.getY() <= paddle.getY() + paddle.getHeight() ||
+                super.getY() + super.getHeight() <= paddle.getY() &&
+                super.getY() + super.getHeight() < paddle.getY() + paddle.getHeight())){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean didCollideRight(Object obj){
+        Paddle paddle = (Paddle) obj;
+        if((super.getX() + super.getWidth() <= paddle.getX() + Math.abs(getXSpeed())) &&
+                (super.getY() >= paddle.getY() && 
+                super.getY() <= paddle.getY() + paddle.getHeight() ||
+                super.getY() + super.getHeight() <= paddle.getY() &&
+                super.getY() + super.getHeight() < paddle.getY() + paddle.getHeight())){
+            return true;
+        }
+        return false;
     }
 
 }
