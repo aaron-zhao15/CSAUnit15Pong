@@ -26,9 +26,9 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 
     public Pong() {
         //set up all variables related to the game
-        ball = new Ball();
+        ball = new BlinkyBall();
 
-        leftPaddle = new Paddle(50, 300, 10, 50, Color.BLACK);
+        leftPaddle = new Paddle(50, 300, 10, 50, Color.BLUE);
 
         rightPaddle = new Paddle(740, 300, 10, 50, Color.BLACK);
 
@@ -66,6 +66,17 @@ public class Pong extends Canvas implements KeyListener, Runnable {
         leftPaddle.draw(graphToBack);
         rightPaddle.draw(graphToBack);
 
+        //handle if either paddle goes out of bounds
+//        if(!(leftPaddle.getY() >= 0 && leftPaddle.getY() + leftPaddle.getHeight() <= 600)){
+//            leftPaddle.remPad(window);
+//            leftPaddle.setY(600 - leftPaddle.getY());
+//        }
+//        
+//        if(!(rightPaddle.getY() >= 0 && rightPaddle.getY() + rightPaddle.getHeight() <= 600)){
+//            rightPaddle.remPad(window);
+//            rightPaddle.setY(600 - rightPaddle.getY());
+//        }
+        
         //see if ball hits left wall or right wall
         if (!(ball.getX() >= 0 && ball.getX() <= window.getClipBounds().width - ball.getWidth())) {
             ball.setXSpeed(0);
