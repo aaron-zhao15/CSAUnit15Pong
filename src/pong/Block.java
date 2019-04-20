@@ -126,12 +126,13 @@ public class Block implements Locatable {
 
     public void draw(Graphics window) {
         //uncomment after you write the set and get methods
-        window.setColor(color);
+        window.setColor(getColor());
         window.fillRect(getX(), getX(), getWidth(), getHeight());
     }
 
     public void draw(Graphics window, Color col) {
-        window.fillRect(xPos, yPos, width, height);
+        window.setColor(col);
+        window.fillRect(getX(), getY(), getWidth(), getHeight());
     }
 
     public boolean equals(Object obj) {
